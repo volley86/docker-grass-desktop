@@ -5,8 +5,12 @@ set -m
 
 # These files could be left-over if the container is not shut down cleanly. We just remove it since we should
 # only be here during container startup.
-rm /tmp/.X1-lock
-rm -r /tmp/.X11-unix
+if [ -f "/tmp/.X1-lock" ];then
+    rm /tmp/.X1-lock
+fi
+if [ -d "/tmp/.X11-unix" ];then
+    rm -r /tmp/.X11-unix
+fi
 
 # Set up the VNC password
 if [ -z "$VNC_PASSWORD" ]; then
